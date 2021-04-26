@@ -10,9 +10,9 @@
 - for every rider the starting price is the bet X2
 - for every rider race
     - if won
-        - decrease his price by 0.1 (the minimum price for a bet is 1.1)
-        - raise his chances to win (by raising his random steps chances)
+        - reduce price by 0.1 (the minimum price for a bet is 1.1)
+        - raise chances to win (by raising his random steps chances)
     - if lose
-        - raise his price by 0.1
+        - raise price by 0.1
 
 
