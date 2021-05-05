@@ -1,37 +1,36 @@
 package races.modules;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Race {
     public final int[] TRACKS = {100, 200, 300};
+    public final int RIDERS_SUM = 100;
+    public final int RACE_RIDERS_SUM = 5;
 
-    private Rider[] riders;
+    private List<Rider> riders;
     private Random randomGenerator;
-    private Rider[] racersRiders;
+    private List<Rider> raceRiders;
 
     public Race() {
-        this.riders = new Rider[99];
+        this.riders = new ArrayList<>();
 
-        for (int i = 0; i < this.riders.length; i++) {
-            this.riders[i] = new Rider(i + "");
+        for (int i = 0; i < RIDERS_SUM; i++) {
+            this.riders.add(new Rider(i + ""));
         }
 
         this.randomGenerator = new Random();
-        this.racersRiders = new Rider[5];
+        this.raceRiders = new ArrayList<>();
     }
 
     public void prepareRace(){
-        //choose 5 riders randomly
-        int ridersCnt = 0;
-
-        while (ridersCnt < racersRiders.length){
-            int riderIndex = this.randomGenerator.nextInt(this.riders.length);
-
-            if(this.riders[riderIndex] != null){
-                racersRiders[ridersCnt] = this.riders[riderIndex];
-                this.riders[riderIndex] = null;
-                ridersCnt++;
-            }
+        //choose random riders
+        for (int i = 0; i < RACE_RIDERS_SUM; i++) {
+            int riderIndex = this.randomGenerator.nextInt(this.riders.size());
+            this.raceRiders.add(this.riders.remove(riderIndex));
         }
     }
+
+    
 }
