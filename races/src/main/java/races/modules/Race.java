@@ -24,7 +24,15 @@ public class Race {
         this.raceRiders = new ArrayList<>();
     }
 
-    public void prepareRace(){
+    public void R() {
+        prepareRace();
+        //default race track
+        List<Rider> raceResult = startRace(1);
+        endRace();
+        terminalDisplayRaceResult(raceResult);
+    }
+
+    private void prepareRace() {
         //choose random riders
         for (int i = 0; i < RACE_RIDERS_SUM; i++) {
             int riderIndex = this.randomGenerator.nextInt(this.riders.size());
@@ -32,5 +40,49 @@ public class Race {
         }
     }
 
-    
+    private List<Rider> startRace(int trackIndex) {
+        final int ESTIMATED_TURNS = 10;
+        final int ADD_DISTANCE_FACTOR = TRACKS[trackIndex] / ESTIMATED_TURNS;
+        boolean raceOn = true;
+
+        while (raceOn) {
+            for (int raceRidersIndex = 0; raceRidersIndex < RACE_RIDERS_SUM; raceRidersIndex++) {
+                int additionalDistance = this.randomGenerator.nextInt(ADD_DISTANCE_FACTOR) + 1;
+                this.raceRiders.get(raceRidersIndex).raiseDistanceInRace(additionalDistance);
+
+                if (this.raceRiders.get(raceRidersIndex).distanceInRace() >= TRACKS[trackIndex]) {
+                    raceOn = false;
+                    break;
+                }
+            }
+
+            //TODO: sort raceRiders by race distance
+        }
+
+        //TODO: deep copy
+        return this.raceRiders;
+    }
+
+    private void endRace() {
+        //TODO: take care of winner and losers stats
+        this.raceRiders.get(0).resetDistanceInRace();
+
+        for (int raceRidersIndex = 1; raceRidersIndex < RACE_RIDERS_SUM; raceRidersIndex++) {
+            this.raceRiders.get(raceRidersIndex).resetDistanceInRace();
+        }
+
+        this.riders.addAll(this.raceRiders);
+        this.raceRiders = new ArrayList<>();
+    }
+
+    private void terminalDisplayRaceResult(List<Rider> raceSummary) {
+        for (int raceRidersIndex = 0; raceRidersIndex < RACE_RIDERS_SUM; raceRidersIndex++) {
+            System.out.println("Place no. "
+                    + (raceRidersIndex + 1)
+                    + " =>  "
+                    + raceSummary.get(raceRidersIndex).name()
+                    + " ||| Final distance => "
+                    + raceSummary.get(raceRidersIndex).distanceInRace());
+        }
+    }
 }

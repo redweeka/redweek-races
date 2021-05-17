@@ -12,6 +12,7 @@ public class Rider {
     private int stepsChances;
     private int wins;
     private int loses;
+    private int distanceInRace;
 
     public Rider(String name) {
         this.name = name;
@@ -19,6 +20,7 @@ public class Rider {
         this.stepsChances = DEFAULT_STEPS_CHANCES;
         this.wins = 0;
         this.loses = 0;
+        this.distanceInRace = 0;
     }
 
     public String name() {
@@ -73,5 +75,17 @@ public class Rider {
 
     public int racesSum(){
         return this.wins + this.loses;
+    }
+
+    public int distanceInRace(){
+        return this.distanceInRace;
+    }
+
+    public void raiseDistanceInRace(int additionalDistance){
+        this.distanceInRace += additionalDistance;
+    }
+
+    public void resetDistanceInRace(){
+        this.distanceInRace = 0;
     }
 }
