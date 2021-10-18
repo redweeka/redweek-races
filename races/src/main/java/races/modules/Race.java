@@ -5,18 +5,23 @@ import java.util.List;
 import java.util.Random;
 
 public class Race {
-    public final int[] TRACKS = {100, 200, 300};
-    public final int RIDERS_SUM = 100;
-    public final int RACE_RIDERS_SUM = 5;
+    private final int[] TRACKS = {100, 200, 300};
+    private final int RIDERS_AMOUNT = 100;
+    private final int RACE_RIDERS_AMOUNT = 5;
 
     private List<Rider> riders;
     private Random randomGenerator;
     private List<Rider> raceRiders;
+    private Race instance = new Race();
 
-    public Race() {
+    public Race getInstance(){
+        return instance;
+    }
+
+    private Race() {
         this.riders = new ArrayList<>();
 
-        for (int i = 0; i < RIDERS_SUM; i++) {
+        for (int i = 0; i < RIDERS_AMOUNT; i++) {
             this.riders.add(new Rider(i + ""));
         }
 
@@ -26,6 +31,7 @@ public class Race {
 
     public void R() {
         prepareRace();
+
         //default race track
         List<Rider> raceResult = startRace(1);
         endRace();
@@ -33,8 +39,9 @@ public class Race {
     }
 
     private void prepareRace() {
+        // TODO: 10/18/2021 refactor raceRiders primitive array of riders indexes (call it raceRidersIndexes)
         //choose random riders
-        for (int i = 0; i < RACE_RIDERS_SUM; i++) {
+        for (int i = 0; i < RACE_RIDERS_AMOUNT; i++) {
             int riderIndex = this.randomGenerator.nextInt(this.riders.size());
             this.raceRiders.add(this.riders.remove(riderIndex));
         }
@@ -46,7 +53,7 @@ public class Race {
         boolean raceOn = true;
 
         while (raceOn) {
-            for (int raceRidersIndex = 0; raceRidersIndex < RACE_RIDERS_SUM; raceRidersIndex++) {
+            for (int raceRidersIndex = 0; raceRidersIndex < RACE_RIDERS_AMOUNT; raceRidersIndex++) {
                 int additionalDistance = this.randomGenerator.nextInt(ADD_DISTANCE_FACTOR) + 1;
                 this.raceRiders.get(raceRidersIndex).raiseDistanceInRace(additionalDistance);
 
@@ -67,7 +74,7 @@ public class Race {
         //TODO: take care of winner and losers stats
         this.raceRiders.get(0).resetDistanceInRace();
 
-        for (int raceRidersIndex = 1; raceRidersIndex < RACE_RIDERS_SUM; raceRidersIndex++) {
+        for (int raceRidersIndex = 1; raceRidersIndex < RACE_RIDERS_AMOUNT; raceRidersIndex++) {
             this.raceRiders.get(raceRidersIndex).resetDistanceInRace();
         }
 
@@ -76,7 +83,7 @@ public class Race {
     }
 
     private void terminalDisplayRaceResult(List<Rider> raceSummary) {
-        for (int raceRidersIndex = 0; raceRidersIndex < RACE_RIDERS_SUM; raceRidersIndex++) {
+        for (int raceRidersIndex = 0; raceRidersIndex < RACE_RIDERS_AMOUNT; raceRidersIndex++) {
             System.out.println("Place no. "
                     + (raceRidersIndex + 1)
                     + " =>  "

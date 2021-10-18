@@ -1,11 +1,11 @@
 package races.modules;
 
 public class Rider {
-    public final double DEFAULT_PRICE = 2.0;
-    public final double MIN_VAL_PRICE = 1.1;
-    public final double CHANGE_PRICE_FACTOR = 0.1;
-    public final int DEFAULT_STEPS_CHANCES = 10;
-    public final int CHANGE_STEPS_CHANCES_FACTOR = 1;
+    private final double DEFAULT_PRICE = 2.0;
+    private final double MIN_VAL_PRICE = 1.1;
+    private final double CHANGE_PRICE_FACTOR = 0.1;
+    private final int DEFAULT_STEPS_CHANCES = 10;
+    private final int CHANGE_STEPS_CHANCES_FACTOR = 1;
 
     private String name;
     private double price;
@@ -40,7 +40,7 @@ public class Rider {
     }
 
     public void reducePrice() {
-        if (this.price >= (MIN_VAL_PRICE + CHANGE_PRICE_FACTOR)) {
+        if (this.price > MIN_VAL_PRICE) {
             this.price -= CHANGE_PRICE_FACTOR;
         }
     }
