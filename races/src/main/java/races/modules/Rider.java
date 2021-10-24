@@ -93,4 +93,14 @@ public class Rider implements Comparable<Rider>{
         // Compare by steps
         return this.distanceInRace() - rider.distanceInRace();
     }
+
+    @Override
+    public String toString() {
+        return "Rider " + name +
+                ", price=" + price +
+                ", stepsBonusChance=" + stepsBonusChance +
+                ", wins=" + wins +
+                ", loses=" + loses +
+                ", distanceInRace=" + distanceInRace + " ~~~~~~ ";
+    }
 }

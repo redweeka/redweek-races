@@ -1,11 +1,10 @@
 package races.modules;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Race {
     private final int[] TRACKS = {100, 200, 300};
-    private final int RIDERS_AMOUNT = 100;
+    private final int RIDERS_AMOUNT = 99;
     private final int RACE_RIDERS_AMOUNT = 5;
     private final Random randomGenerator = new Random();
     private final List<Rider> riders;
@@ -21,9 +20,10 @@ public class Race {
     private Race() {
         this.riders = new ArrayList<>();
 
-        for (int i = 0; i < this.RIDERS_AMOUNT; i++) {
+        for (int i = 1; i <= this.RIDERS_AMOUNT; i++) {
             this.riders.add(new Rider(i + ""));
         }
+        //System.out.println(Arrays.deepToString(this.riders.toArray()));
 
         this.raceRidersIndexes = new Integer[this.RACE_RIDERS_AMOUNT];
     }
@@ -37,6 +37,7 @@ public class Race {
         // Called before end race to use steps info before reset
         terminalDisplayRaceResult(ridersIndexesRaceResult);
         endRace();
+
     }
 
     private void chooseRidersForRace() {
@@ -49,7 +50,7 @@ public class Race {
             if(numbers[riderIndex]){
                 raceRidersIndex--;
             } else {
-                numbers[raceRidersIndex] = true;
+                numbers[riderIndex] = true;
                 this.raceRidersIndexes[raceRidersIndex] = riderIndex;
             }
         }
@@ -73,8 +74,6 @@ public class Race {
                     raceOn = false;
                     break;
                 }
-
-                // TODO: 10/24/2021 check that riders change in the arrayList
             }
 
             Comparator<Integer> stepsCmp =  Comparator.comparing(nextRider -> riders.get(nextRider).distanceInRace());
@@ -101,8 +100,8 @@ public class Race {
     private void terminalDisplayRaceResult(Integer[] ridersIndexesRaceResult) {
         Rider currRider;
 
-        for (int raceRidersIndex = 0; raceRidersIndex < this.RACE_RIDERS_AMOUNT; raceRidersIndex++) {
-            currRider = this.riders.get(this.raceRidersIndexes[raceRidersIndex]);
+        for (int raceRidersIndex = 0; raceRidersIndex < ridersIndexesRaceResult.length; raceRidersIndex++) {
+            currRider = this.riders.get(ridersIndexesRaceResult[raceRidersIndex]);
             System.out.println("Place no. "
                     + (raceRidersIndex + 1)
                     + " =>  "
