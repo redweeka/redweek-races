@@ -14,5 +14,5 @@
         - raise chances to win (by raising his random steps chances)
     - if lose
         - raise price by 0.1
-
+        - reset chances to win
 
