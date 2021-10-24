@@ -1,8 +1,7 @@
 package races.modules;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Race {
     private final int[] TRACKS = {100, 200, 300};
@@ -11,11 +10,12 @@ public class Race {
     private final Random randomGenerator = new Random();
     private final List<Rider> riders;
 
-    private int[] raceRidersIndexes;
+    // Integer for easy sorting
+    private Integer[] raceRidersIndexes;
     private static final Race instance = new Race();
 
-    public Race getInstance(){
-        return this.instance;
+    public static Race getInstance(){
+        return instance;
     }
 
     private Race() {
@@ -24,13 +24,15 @@ public class Race {
         for (int i = 0; i < this.RIDERS_AMOUNT; i++) {
             this.riders.add(new Rider(i + ""));
         }
+
+        this.raceRidersIndexes = new Integer[this.RACE_RIDERS_AMOUNT];
     }
 
     public void R() {
         chooseRidersForRace();
 
         // Default race track
-        int[] ridersIndexesRaceResult = startRace(1);
+        Integer[] ridersIndexesRaceResult = startRace(0);
 
         // Called before end race to use steps info before reset
         terminalDisplayRaceResult(ridersIndexesRaceResult);
@@ -38,7 +40,6 @@ public class Race {
     }
 
     private void chooseRidersForRace() {
-        this.raceRidersIndexes = new int[this.RACE_RIDERS_AMOUNT];
         boolean[] numbers = new boolean[this.RIDERS_AMOUNT];
 
         // Choose random race riders
@@ -49,14 +50,12 @@ public class Race {
                 raceRidersIndex--;
             } else {
                 numbers[raceRidersIndex] = true;
-                this.raceRidersIndexes[riderIndex] = riderIndex;
+                this.raceRidersIndexes[raceRidersIndex] = riderIndex;
             }
         }
-
-        // TODO: 10/24/2021 check the random indexes && the init boolean array
     }
 
-    private int[] startRace(int trackIndex) {
+    private Integer[] startRace(int trackIndex) {
         final int trackLength = this.TRACKS[trackIndex];
         final int ESTIMATED_TURNS = 10;
         final int DISTANCE_FACTOR = trackLength / ESTIMATED_TURNS;
@@ -78,7 +77,8 @@ public class Race {
                 // TODO: 10/24/2021 check that riders change in the arrayList
             }
 
-            //TODO: sort raceRiders by race distance
+            Comparator<Integer> stepsCmp =  Comparator.comparing(nextRider -> riders.get(nextRider).distanceInRace());
+            Arrays.sort(this.raceRidersIndexes, stepsCmp.reversed());
         }
 
         return this.raceRidersIndexes;
@@ -89,13 +89,16 @@ public class Race {
         Rider currRider = this.riders.get(this.raceRidersIndexes[0]);
         currRider.resetDistanceInRace();
 
+        // For the losers
         for (int raceRidersIndex = 1; raceRidersIndex < this.RACE_RIDERS_AMOUNT; raceRidersIndex++) {
             currRider = this.riders.get(this.raceRidersIndexes[raceRidersIndex]);
             currRider.resetDistanceInRace();
         }
+
+        this.raceRidersIndexes = new Integer[this.RACE_RIDERS_AMOUNT];
     }
 
-    private void terminalDisplayRaceResult(int[] ridersIndexesRaceResult) {
+    private void terminalDisplayRaceResult(Integer[] ridersIndexesRaceResult) {
         Rider currRider;
 
         for (int raceRidersIndex = 0; raceRidersIndex < this.RACE_RIDERS_AMOUNT; raceRidersIndex++) {
@@ -104,7 +107,7 @@ public class Race {
                     + (raceRidersIndex + 1)
                     + " =>  "
                     + currRider.name()
-                    + " ||| Final distance => "
+                    + " ||| With distance of => "
                     + currRider.distanceInRace());
         }
     }

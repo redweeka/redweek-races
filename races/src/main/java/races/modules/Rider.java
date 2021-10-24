@@ -1,6 +1,6 @@
 package races.modules;
 
-public class Rider {
+public class Rider implements Comparable<Rider>{
     private final double DEFAULT_PRICE = 2.0;
     private final double MIN_VAL_PRICE = 1.1;
     private final double CHANGE_PRICE_FACTOR = 0.1;
@@ -86,5 +86,11 @@ public class Rider {
 
     public void resetDistanceInRace(){
         this.distanceInRace = 0;
+    }
+
+    @Override
+    public int compareTo(Rider rider) {
+        // Compare by steps
+        return this.distanceInRace() - rider.distanceInRace();
     }
 }
