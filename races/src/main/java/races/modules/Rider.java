@@ -4,12 +4,11 @@ public class Rider {
     private final double DEFAULT_PRICE = 2.0;
     private final double MIN_VAL_PRICE = 1.1;
     private final double CHANGE_PRICE_FACTOR = 0.1;
-    private final int DEFAULT_STEPS_CHANCES = 10;
     private final int CHANGE_STEPS_CHANCES_FACTOR = 1;
 
     private String name;
     private double price;
-    private int stepsChances;
+    private int stepsBonusChance;
     private int wins;
     private int loses;
     private int distanceInRace;
@@ -17,7 +16,7 @@ public class Rider {
     public Rider(String name) {
         this.name = name;
         this.price = DEFAULT_PRICE;
-        this.stepsChances = DEFAULT_STEPS_CHANCES;
+        this.stepsBonusChance = 0;
         this.wins = 0;
         this.loses = 0;
         this.distanceInRace = 0;
@@ -45,16 +44,16 @@ public class Rider {
         }
     }
 
-    public int stepsChances() {
-        return this.stepsChances;
+    public int stepsBonusChances() {
+        return this.stepsBonusChance;
     }
 
-    public void resetStepsChances() {
-        this.stepsChances = DEFAULT_STEPS_CHANCES;
+    public void resetStepsBonusChances() {
+        this.stepsBonusChance = 0;
     }
 
-    public void raiseStepsChances() {
-        this.stepsChances += CHANGE_STEPS_CHANCES_FACTOR;
+    public void raiseStepsBonusChances() {
+        this.stepsBonusChance += CHANGE_STEPS_CHANCES_FACTOR;
     }
 
     public int wins() {
