@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".views.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/curr_racers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/race_result"
         android:layout_above="@+id/play"

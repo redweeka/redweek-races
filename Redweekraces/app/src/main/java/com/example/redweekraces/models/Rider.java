@@ -88,6 +88,20 @@ public class Rider implements Comparable<Rider>{
         this.distanceInRace = 0;
     }
 
+    public void makeWinArrangement(){
+        this.resetDistanceInRace();
+        this.addWin();
+        this.raiseStepsBonusChances();
+        this.raisePrice();
+    }
+
+    public void makeLoseArrangement(){
+        this.resetDistanceInRace();
+        this.addLose();
+        this.resetStepsBonusChances();
+        this.reducePrice();
+    }
+
     @Override
     public int compareTo(Rider rider) {
         // Compare by steps

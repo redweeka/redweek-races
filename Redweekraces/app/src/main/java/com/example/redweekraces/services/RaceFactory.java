@@ -91,14 +91,14 @@ public class RaceFactory {
     }
 
     private void endRace() {
-        //TODO: 10/24/2021 take care of winner and losers stats by making func for it in Rider class
+        // TODO: 10/30/2021 add user money arrangement
         Rider currRider = this.riders.get(this.raceRidersIndexes[0]);
-        currRider.resetDistanceInRace();
+        currRider.makeWinArrangement();
 
         // For the losers
         for (int raceRidersIndex = 1; raceRidersIndex < this.RACE_RIDERS_AMOUNT; raceRidersIndex++) {
             currRider = this.riders.get(this.raceRidersIndexes[raceRidersIndex]);
-            currRider.resetDistanceInRace();
+            currRider.makeLoseArrangement();
         }
 
         this.raceRidersIndexes = new Integer[this.RACE_RIDERS_AMOUNT];
