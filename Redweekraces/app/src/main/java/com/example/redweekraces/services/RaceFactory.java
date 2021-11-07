@@ -35,19 +35,20 @@ public class RaceFactory {
     }
 
     public String race() {
-        chooseRidersForRace();
-
-        // Default race track
+        // Start race and get winners with default race track (index 0 in tracks)
         Integer[] ridersIndexesRaceResult = startRace(0);
-        // Called before endRace() to use steps info before reset
+
+        // Called before endRace() to use steps info before racers reset
         terminalDisplayRaceResult(ridersIndexesRaceResult);
+
+        // Get winners name for display
         String winnerName = this.riders.get(ridersIndexesRaceResult[0]).name();
         endRace();
 
         return winnerName;
     }
 
-    private void chooseRidersForRace() {
+    public String[] prepareRaceRiders() {
         boolean[] numbers = new boolean[this.RIDERS_AMOUNT];
 
         // Choose random race riders
@@ -61,6 +62,18 @@ public class RaceFactory {
                 this.raceRidersIndexes[raceRidersIndex] = riderIndex;
             }
         }
+
+        return racersNames();
+    }
+
+    private String[] racersNames(){
+        String[] racersNames = new String[this.raceRidersIndexes.length];
+
+        for (int nameIndex = 0; nameIndex < this.raceRidersIndexes.length; nameIndex++) {
+            racersNames[nameIndex] = this.riders.get(this.raceRidersIndexes[nameIndex]).name();
+        }
+
+        return racersNames;
     }
 
     private Integer[] startRace(int trackIndex) {

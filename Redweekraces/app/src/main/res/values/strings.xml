@@ -3,4 +3,5 @@
     <string name="play">Play</string>
     <string name="race_result">Race result</string>
     <string name="app_label">Red week races</string>
+    <string name="prepare_new_race">Prepare new race</string>
 </resources>

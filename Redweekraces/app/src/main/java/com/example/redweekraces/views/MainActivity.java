@@ -1,6 +1,7 @@
 package com.example.redweekraces.views;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,7 +14,7 @@ import com.example.redweekraces.R;
 import com.example.redweekraces.adapters.CurrRacersRecyclerViewAdapter;
 import com.example.redweekraces.services.RaceFactory;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView currRacersRecyclerView;
     CurrRacersRecyclerViewAdapter currRacersRecyclerViewAdapter;
     TextView raceResultTextView;
+    Button prepareRaceButton;
     Button playButton;
 
     @Override
@@ -31,9 +33,10 @@ public class MainActivity extends AppCompatActivity {
         this.currRacersRecyclerView = findViewById(R.id.curr_racers);
         initCurrRacersRecyclerView();
         this.raceResultTextView = findViewById(R.id.race_result);
+        this.prepareRaceButton = findViewById(R.id.prepare_new_race);
         this.playButton = findViewById(R.id.play);
 
-        setPlayOnClickListener();
+        setButtonsClickListeners();
     }
 
     private void initCurrRacersRecyclerView() {
@@ -53,24 +56,27 @@ public class MainActivity extends AppCompatActivity {
         this.currRacersRecyclerView.setAdapter(this.currRacersRecyclerViewAdapter);
     }
 
-    private void updateRacerList() {
-        // TODO: 10/31/2021 actual prepare racers separate from race
-        // Demo racers
-        List<String> racersList = new ArrayList<>();
-        racersList.add("1");
-        racersList.add("16");
-        racersList.add("6");
-        racersList.add("36");
-        racersList.add("46");
-
+    private void updateRacerList(List<String> racersList) {
         this.currRacersRecyclerViewAdapter.setRacersNames(racersList);
     }
 
-    private void setPlayOnClickListener() {
-        playButton.setOnClickListener(v -> {
-            updateRacerList();
+    private void setButtonsClickListeners() {
+        this.prepareRaceButton.setOnClickListener(v -> {
+            raceResultTextView.setText(getString(R.string.race_result));
+
+            String[] racers = RaceFactory.getInstance().prepareRaceRiders();
+            updateRacerList(Arrays.asList(racers));
+
+            prepareRaceButton.setVisibility(View.GONE);
+            playButton.setVisibility(View.VISIBLE);
+        });
+
+        this.playButton.setOnClickListener(v -> {
             String winnerName = RaceFactory.getInstance().race();
             this.raceResultTextView.setText(winnerName);
+
+            playButton.setVisibility(View.GONE);
+            prepareRaceButton.setVisibility(View.VISIBLE);
         });
     }
 }
