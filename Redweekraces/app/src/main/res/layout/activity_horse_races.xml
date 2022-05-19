@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/curr_racers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_centerInParent="true"
+        android:id="@+id/race_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/race_result"
+        android:textAlignment="center"
+        android:textSize="26sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/race_result">
+
+        <Button
+            android:layout_centerInParent="true"
+            android:id="@+id/prepare_new_race"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prepare_new_race" />
+
+        <Button
+            android:layout_centerInParent="true"
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</RelativeLayout>
