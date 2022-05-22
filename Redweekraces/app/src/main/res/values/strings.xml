@@ -4,4 +4,7 @@
     <string name="race_result">Race result</string>
     <string name="app_label">Red week races</string>
     <string name="prepare_new_race">Prepare new race</string>
+    <string name="horse_races">Horse races</string>
+    <string name="menu_title">Menu</string>
+    <string name="island_races">Island races</string>
 </resources>

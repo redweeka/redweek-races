@@ -18,16 +18,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HorseRacesActivity extends AppCompatActivity {
-    RecyclerView currRacersRecyclerView;
-    CurrRacersRecyclerViewAdapter currRacersRecyclerViewAdapter;
-    TextView raceResultTextView;
-    Button prepareRaceButton;
-    Button playButton;
+    private RecyclerView currRacersRecyclerView;
+    private CurrRacersRecyclerViewAdapter currRacersRecyclerViewAdapter;
+    private TextView raceResultTextView;
+    private Button prepareRaceButton;
+    private Button playButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_horse_races);
 
         this.currRacersRecyclerView = findViewById(R.id.curr_racers);
         initCurrRacersRecyclerView();
