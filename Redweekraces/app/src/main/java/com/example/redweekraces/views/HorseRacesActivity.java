@@ -66,16 +66,16 @@ public class HorseRacesActivity extends AppCompatActivity {
             String[] racers = RaceFactory.getInstance().prepareRaceRiders();
             updateRacerList(Arrays.asList(racers));
 
-            prepareRaceButton.setVisibility(View.GONE);
-            playButton.setVisibility(View.VISIBLE);
+            this.prepareRaceButton.setVisibility(View.GONE);
+            this.playButton.setVisibility(View.VISIBLE);
         });
 
         this.playButton.setOnClickListener(v -> {
             String winnerName = RaceFactory.getInstance().race();
             this.raceResultTextView.setText(winnerName);
 
-            playButton.setVisibility(View.GONE);
-            prepareRaceButton.setVisibility(View.VISIBLE);
+            this.playButton.setVisibility(View.GONE);
+            this.prepareRaceButton.setVisibility(View.VISIBLE);
         });
     }
 }
